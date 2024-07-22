@@ -1,1 +1,66 @@
+# Question and options
 
+questions=[
+    {
+        "question":"which language is primarily used for web developmwnt?",
+        "options":["A. Python","B. Javascript","C. C++","D. Java"],
+        "answer":"B"
+    },
+    {
+        "question":"who developed python programming language?",
+        "options":["A. Wick Van Rossum","B. Rasmus Lerdorf","C. Guido Van Rossum","D. Niene Stom"],
+        "answer":"C"
+    },
+    {
+        "question":"which type of programming does python support?",
+        "options":["A. Object-Oriented Programming","B. Structured Programming","C. Functional programming","D. All of the mentioned"],
+        "answer":"D"
+    }
+]
+
+#function to evaluate score
+
+def evaluate_score(answers,correct_answers):
+    score=0
+    for user_answer,correct_answer in zip (answers,correct_answers):
+        if user_answer.upper() == correct_answer:
+            score +=1
+    return score
+
+#function to ask question and get user input
+
+def ask_question(question_data):
+    print(question_data["question"])
+    for option in question_data["options"]:
+        print(option)
+    user_answer = input("Please enter your answer:").upper()
+    while user_answer not in ["A","B","C","D"]:
+        user_answer = input("Invalid input. Please choose A,B,C,D one of these option:").upper()
+        
+    return user_answer
+
+#function to provide feedback
+
+def provide_feedback(user_answer,correct_answer):
+    if user_answer == correct_answer:
+        print("Your Answer is Correct.")
+    else:
+        print("Incorrect. The correct answer is:",correct_answer)
+   
+#quiz logic
+
+def quiz(questions):
+    user_answers = []
+    correct_answers = [q["answer"]for q in questions]
+    
+    for question_data in questions:
+        user_answer = ask_question(question_data)
+        user_answers.append(user_answer)
+        provide_feedback(user_answer,question_data["answer"])
+        print()
+        
+    final_score = evaluate_score(user_answers,correct_answers)
+    print(f"Your Final score is : {final_score}/{len(questions)}.")
+
+if __name__== "__main__":
+    quiz(questions)                       
